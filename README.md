@@ -75,6 +75,10 @@ LENAS achieves competitive or state-of-the-art classification accuracy across di
 ### 2. Segmentation Performance
 Comparison of annotation-free segmentation performance on **Kvasir-SEG** (Polyp) and **BUSI** (Breast Ultrasound) datasets. LENAS significantly outperforms weakly supervised baselines.
 
+<div align="center">
+    <img width="1000px" height="auto" src="assets/Untitled Diagram.drawio (8) (1).png">
+</div>
+
 | Method | Kvasir-SEG (Dice) | Kvasir-SEG (IoU) | BUSI (Dice) | BUSI (IoU) |
 | :--- | :---: | :---: | :---: | :---: |
 | GradCAM | 0.1034 | 0.0600 | -- | -- |
