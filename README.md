@@ -6,7 +6,7 @@ This repository provides the official implementation of **LENAS: Learning from E
 
 ## The Problem
 Medical image segmentation is the cornerstone of computer-aided diagnosis, yet it faces two critical hurdles:
-1.  **Scarcity of Expert Annotations:** Unlike natural images, medical datasets lack the massive pixel-level annotations required to train robust models like the Segment Anything Model (SAM). Manual labeling is expensive, time-consuming, and requires skilled professionals.
+1.  **Scarcity of Expert Annotations:** Unlike natural images, medical datasets lack the massive pixel-level annotations required to train robust medical image segmentation models. Manual labeling is expensive, time-consuming, and requires skilled professionals.
 2.  **Visual Complexity:** Pathological changes (lesions, polyps, tumors) often exhibit low contrast, subtle variations, and irregular boundaries that generic foundation models fail to capture without specific fine-tuning.
 
 ## Our Solution: LENAS
