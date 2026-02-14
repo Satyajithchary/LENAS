@@ -4,6 +4,20 @@
 
 This repository provides the official implementation of **LENAS: Learning from Explainable and Navigated Attention for Annotation-Free Medical Image Segmentation**.
 
+## The Problem
+Medical image segmentation is the cornerstone of computer-aided diagnosis, yet it faces two critical hurdles:
+1.  **Scarcity of Expert Annotations:** Unlike natural images, medical datasets lack the massive pixel-level annotations required to train robust models like the Segment Anything Model (SAM). Manual labeling is expensive, time-consuming, and requires skilled professionals.
+2.  **Visual Complexity:** Pathological changes (lesions, polyps, tumors) often exhibit low contrast, subtle variations, and irregular boundaries that generic foundation models fail to capture without specific fine-tuning.
+
+## Our Solution: LENAS
+**LENAS** (Learning from Explainable and Navigated Attention for Annotation-Free Medical Image Segmentation) bridges the gap between **visual recognition** (classification) and **medical understanding** (segmentation).
+
+Instead of relying on expensive pixel-level masks, LENAS uses **only image-level labels** (e.g., "polyp present") to achieve high-fidelity segmentation. It treats segmentation as a **vision-language grounding problem**, where the model autonomously:
+1.  **Navigates** to the pathology using a specialized Differential BiomedCLIP.
+2.  **Explains** the region using fused XAI maps (Saliency, Integrated Gradients, etc.).
+3.  **Prompts** SAM automatically with these explanation maps.
+4.  **Refines** the result through a self-correcting loop that optimizes for both classifier confidence and geometric smoothness.
+
 ## Key Features
 
 - **Annotation-Free Segmentation**: Achieves high-fidelity segmentation without pixel-level supervision or manual bounding boxes, relying solely on image-level labels.
