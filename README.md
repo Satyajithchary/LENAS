@@ -113,6 +113,7 @@ pip install -r requirements.txt
 
 Please download the datasets from the official sources below and organize them into the `data/` directory:
 
+- **Capsule Vision Challenge (CVC)**: [Download Here](https://figshare.com/articles/dataset/Training_and_Validation_Dataset_of_Capsule_Vision_2024_Challenge/26403469)
 - **Kvasir-SEG**: [Download Here](https://datasets.simula.no/kvasir-seg/)
 - **BUSI (Breast Ultrasound)**: [Download Here](https://data.mendeley.com/datasets/k6cpmwybk3/3)
 - **ISIC (Skin Lesions)**: [Download Here](https://www.kaggle.com/datasets/nodoubttome/skin-cancer9-classesisic)
