@@ -1,4 +1,6 @@
-<img width="2213" height="582" alt="LENAS drawio (1) (1)" src="https://github.com/user-attachments/assets/5a8e2103-6bc2-42fc-ad47-ee54723363ac" /># LENAS
+<img width="2213" height="582" alt="LENAS drawio (1) (1)" src="https://github.com/user-attachments/assets/5a8e2103-6bc2-42fc-ad47-ee54723363ac" /> 
+
+## LENAS
 
 This repository provides the official implementation of **LENAS: Learning from Explainable and Navigated Attention for Annotation-Free Medical Image Segmentation**.
 
@@ -32,7 +34,33 @@ Our key contributions are:
 
 ## Quantitative Results
 
-LENAS achieves state-of-the-art performance among annotation-free and low-label baselines. Below is the comparison on **Kvasir-SEG** (Polyp) and **BUSI** (Breast Ultrasound) datasets.
+
+### 1. Classification Performance
+LENAS achieves competitive or state-of-the-art classification accuracy across diverse medical imaging modalities, proving the robustness of the Differential BiomedCLIP backbone.
+
+| Dataset | Model / Paper | Val Acc (%) |
+| :--- | :--- | :---: |
+| **Kvasir-SEG** | Ahmed et al., 2023 [37] | 90.17% |
+| | Pozdeev et al., 2017 [38] | 88.00% |
+| | Guo et al., 2024 (HyperKvasir) [39] | 88.92% |
+| | SqueezeNet [40] | 79.15% |
+| | **LENAS (Ours)** | **91.31%** |
+| **ISIC (Skin lesions)** | Yilmaz et al., 2021 [41] | 82.00% |
+| | Haenssle et al., 2018 [42] | 71.30% |
+| | Alsahafi et al., 2023 (Skin-Net) [43] | 80.00% |
+| | **LENAS (Ours)** | **82.78%** |
+| **NIH–CXR (Chest X-ray)** | Shamrat et al., 2023 [44] | 91.60% |
+| | Reshan et al., 2023 [45] | 90.85% |
+| | Ait Nasser et al., 2023 [46] | 88–92% |
+| | **LENAS (Ours)** | **93.03%** |
+| **Figshare Brain Tumor** | Cheng et al., 2015 [36] | 91.28% |
+| | Akter et al., 2024 [47] | 95.10% |
+| | Talukder et al., 2023 [48] | 99.76% |
+| | Ullah et al., 2023 (TumorDetNet) [49] | **99.83%** |
+| | **LENAS (Ours)** | **98.04%** |
+
+### 2. Segmentation Performance
+Comparison of annotation-free segmentation performance on **Kvasir-SEG** (Polyp) and **BUSI** (Breast Ultrasound) datasets. LENAS significantly outperforms weakly supervised baselines.
 
 | Method | Kvasir-SEG (Dice) | Kvasir-SEG (IoU) | BUSI (Dice) | BUSI (IoU) |
 | :--- | :---: | :---: | :---: | :---: |
@@ -66,3 +94,38 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 # install requirements
 pip install -r requirements.txt
+```
+
+## Data Preparation
+
+Please download the datasets from the official sources below and organize them into the `data/` directory:
+
+- **Kvasir-SEG**: [Download Here](https://datasets.simula.no/kvasir-seg/)
+- **BUSI (Breast Ultrasound)**: [Download Here](https://data.mendeley.com/datasets/k6cpmwybk3/3)
+- **ISIC (Skin Lesions)**: [Download Here](https://www.kaggle.com/datasets/nodoubttome/skin-cancer9-classesisic)
+- **NIH-CXR (Chest X-ray)**: [Download Here](https://huggingface.co/datasets/alkzar90/NIH-Chest-X-ray-dataset)
+- **Figshare Brain Tumor**: [Download Here](https://figshare.com/articles/dataset/brain_tumor_dataset/1512427)
+
+Training (Classifier):
+To train the Differential BiomedCLIP classifier using image-level labels:
+
+```shell
+python train_classifier.py --dataset kvasir --epochs 5 --batch_size 32
+```
+
+## Inference (Segmentation)
+To run the full LENAS pipeline (XAI extraction → Prompt Generation → SAM → Refinement):
+
+```shell
+python main.py --image_path ./data/sample_image.jpg --output_dir ./results
+```
+
+## Feedback and Contact
+For further questions regarding the code or paper, please feel free to contact:
+Podakanti Satyajith Chary: es25resch11002@iith.ac.in
+
+## License
+This project is under the MIT License. See LICENSE for details.
+
+## Acknowledgement
+We thank the authors of **BiomedCLIP**, **Segment Anything (SAM)**, and **Quantus** for making their valuable work publicly available.
