@@ -48,29 +48,28 @@ Our key contributions are:
 
 ## Quantitative Results
 
-
 ### 1. Classification Performance
-LENAS achieves competitive or state-of-the-art classification accuracy across diverse medical imaging modalities, proving the robustness of the Differential BiomedCLIP backbone.
+LENAS achieves competitive or state-of-the-art classification accuracy across diverse medical imaging modalities, proving the robustness of the LENAS model.
 
 | Dataset | Model / Paper | Val Acc (%) |
 | :--- | :--- | :---: |
-| **Kvasir-SEG** | Ahmed et al., 2023 [37] | 90.17% |
-| | Pozdeev et al., 2017 [38] | 88.00% |
-| | Guo et al., 2024 (HyperKvasir) [39] | 88.92% |
-| | SqueezeNet [40] | 79.15% |
+| **Kvasir-SEG** | [Ahmed et al., 2023](https://doi.org/10.3390/diagnostics13101758) | 90.17% |
+| | [Pozdeev et al., 2017](https://doi.org/10.1109/EIConRus.2019.8657018) | 88.00% |
+| | [Guo et al., 2024 (HyperKvasir)](https://doi.org/10.1038/s41598-024-53955-8) | 88.92% |
+| | [SqueezeNet Survey](https://arxiv.org/abs/1602.07360) | 79.15% |
 | | **LENAS (Ours)** | **91.31%** |
-| **ISIC (Skin lesions)** | Yilmaz et al., 2021 [41] | 82.00% |
-| | Haenssle et al., 2018 [42] | 71.30% |
-| | Alsahafi et al., 2023 (Skin-Net) [43] | 80.00% |
+| **ISIC (Skin lesions)** | [Yilmaz et al., 2021](https://arxiv.org/abs/2110.12270) | 82.00% |
+| | [Haenssle et al., 2018](https://doi.org/10.1093/annonc/mdy166) | 71.30% |
+| | [Alsahafi et al., 2023 (Skin-Net)](https://doi.org/10.1186/s40537-023-00769-6) | 80.00% |
 | | **LENAS (Ours)** | **82.78%** |
-| **NIH–CXR (Chest X-ray)** | Shamrat et al., 2023 [44] | 91.60% |
-| | Reshan et al., 2023 [45] | 90.85% |
-| | Ait Nasser et al., 2023 [46] | 88–92% |
+| **NIH–CXR (Chest X-ray)** | [Shamrat et al., 2023](https://doi.org/10.1016/j.compbiomed.2023.106646) | 91.60% |
+| | [Reshan et al., 2023](https://doi.org/10.3390/healthcare11111561) | 90.85% |
+| | [Ait Nasser et al., 2023](https://doi.org/10.3390/diagnostics13010159) | 88–92% |
 | | **LENAS (Ours)** | **93.03%** |
-| **Figshare Brain Tumor** | Cheng et al., 2015 [36] | 91.28% |
-| | Akter et al., 2024 [47] | 95.10% |
-| | Talukder et al., 2023 [48] | 99.76% |
-| | Ullah et al., 2023 (TumorDetNet) [49] | **99.83%** |
+| **Figshare Brain Tumor** | [Cheng et al., 2015](https://doi.org/10.1371/journal.pone.0140381) | 91.28% |
+| | [Akter et al., 2024](https://doi.org/10.1038/s41598-024-74731-8) | 95.10% |
+| | [Talukder et al., 2023](https://arxiv.org/abs/2305.12844) | 99.76% |
+| | [Ullah et al., 2023 (TumorDetNet)](https://doi.org/10.1371/journal.pone.0291200) | **99.83%** |
 | | **LENAS (Ours)** | **98.04%** |
 
 ### 2. Segmentation Performance
