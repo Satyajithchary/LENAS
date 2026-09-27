@@ -1,15 +1,18 @@
+#   pip freeze | grep -i -E "torch|open.clip|segment|captum|quantus|scikit-image|opencv|pydensecrf|numpy|pandas|matplotlib|openpyxl|transformers|timm|seaborn|pillow"
 torch
 torchvision
 open_clip_torch
-timm
+segment-anything @ git+https://github.com/facebookresearch/segment-anything.git
 captum
+quantus
+scikit-image
 opencv-python
+pydensecrf
 numpy
 pandas
 matplotlib
 seaborn
-scikit-image
-scipy
-segment-anything
-tqdm
-Pillow
+openpyxl
+pillow
+timm
+transformers
