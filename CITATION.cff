@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "LENAAFMIS: Learning from Explainable and Navigated Attention for Annotation-Free Medical Image Segmentation"
+version: "1.0.0"
+license: MIT
+repository-code: "https://github.com/Satyajithchary/LENAS"
+doi: "10.5281/zenodo.XXXXXXX"   # replace after the Zenodo release is archived
+authors:
+  - family-names: Chary
+    given-names: Podakanti Satyajith
+    affiliation: "Department of Engineering Science, IIT Hyderabad"
+  - family-names: Kumar
+    given-names: Pithani Teja Venkata Ramana
+    affiliation: "Department of Biomedical Engineering, IIT Hyderabad"
+  - family-names: Ganapathy
+    given-names: Nagarajan
+    affiliation: "Department of Biomedical Engineering, IIT Hyderabad"

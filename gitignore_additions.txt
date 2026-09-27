@@ -1,0 +1,16 @@
+# --- add to the existing .gitignore ---
+# model weights and checkpoints (never commit; >100 MB and not needed in the archive)
+*.pth
+*.pt
+*.ckpt
+# datasets and run outputs
+data/
+results/
+LENAS_*_experiments/
+ZS_checkpoints/
+ZS_baselines/
+figures_out/
+*.log
+# Python / notebooks
+__pycache__/
+.ipynb_checkpoints/
