@@ -2,13 +2,8 @@
 """
 LENAS BUSI REVISION EXPERIMENTS
 ===============================
-BUSI twin of lenas_revision_experiments.py. Runs every reviewer-requested experiment on the
 BUSI breast-ultrasound dataset, PER CLASS (benign / malignant), using the locked BUSI config
 (plain pipeline: candidate-selection / growth / blob / CRF OFF, per-image GT lesion label).
-
-Reuses lenas_busi_run.py for dataset + model loading, and the debugged pipeline in
-LENAS_Kvasir_revised.py for segmentation. Resumable; --smoke for a quick end-to-end test;
-exports source-data CSVs + a combined Excel workbook.
 
 Experiments: table4_baselines (U-Net 1/5/10/100%), variantD (standard vs differential),
 sensitivity (fusion + XAI weights + sharpen), recent_methods (CLIPSeg / SAM-auto), variability
