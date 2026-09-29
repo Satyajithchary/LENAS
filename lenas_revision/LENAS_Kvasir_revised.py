@@ -39,15 +39,7 @@ except:
 import warnings
 warnings.filterwarnings("ignore")
 
-# =========================================================================================
-# REVISION ADD-ONS  (Communications AI & Computing -> Nature-family major revision)
-# -----------------------------------------------------------------------------------------
-# Editor explicitly approved post-processing (CRF) by email, provided the change is
-# described and a before/after comparison is given. Everything below is ADDITIVE and
-# CONFIG-gated: with USE_CRF=False and RUN_REVISION_SUITE=False the file reproduces the
-# ORIGINAL pipeline byte-for-byte. No reported metric is hard-coded anywhere -- every
-# number printed by the suite comes from an actual run on your data.
-# =========================================================================================
+
 import time as _time
 import random as _random
 
@@ -55,7 +47,7 @@ REVISION_CONFIG = {
     # ---- editor-approved boundary post-processing -------------------------------------
     "USE_CRF": True,            # set False to reproduce the ORIGINAL (pre-revision) result
     "CRF_ITERATIONS": 5,
-    # ---- reviewer-requested experiments (run AFTER the normal pipeline) ----------------
+    # ---- reviewer-requested experiments  ----------------
     "RUN_REVISION_SUITE": True, # master switch for seeds + CRF on/off + sensitivity + latency
     "RUN_SEEDS": True,          # Reviewer: variability of stochastic prompt sampling
     "SEEDS": [42, 43, 44, 45, 46],
@@ -73,7 +65,7 @@ REVISION_CONFIG = {
     "OUTPUT_DIR": "./LENAS_outputs_v2",  # figures/ checkpoints/ results/ logs/ created here
     "SAVE_FIGURES": True,             # write every figure to OUTPUT_DIR/figures
     "TEE_LOG": True,                  # mirror all console output to OUTPUT_DIR/logs/*.log
-    # ---- Kvasir localisation fixes (root cause of Dice=0 cases) -------------------------
+    # ---- Kvasir localisation (root cause of Dice=0 cases) -------------------------
     "KVASIR_FORCE_POLYP_CLASS": True, # condition XAI on the image-level label (Polyp), not the
                                       # capsule classifier's out-of-domain argmax. This is LENAS's
                                       # stated supervision (image-level y) and fixes wrong-class saliency.
@@ -81,9 +73,9 @@ REVISION_CONFIG = {
     "SUPPRESS_BORDER_SPECULAR": True, # keep prompts off black borders / specular glare (data-driven)
     "KVASIR_CANDIDATE_SELECTION": True,# pick the SAM mask that maximises the classifier polyp-reward
     "KVASIR_N_PEAKS": 4,              # number of saliency-peak candidates to try (besides the bbox one)
-    "KVASIR_BLOB_COVERAGE": True,     # add a full-salient-blob candidate per peak to fix under-segmentation
+    "KVASIR_BLOB_COVERAGE": True,     # a full-salient-blob candidate per peak to fix under-segmentation
     "KVASIR_STAGE_SELECT": False,     # OFF: pipeline is progressive (SAM->snake->iter->CRF); we fix stages, not select one
-    "KVASIR_ITER_INIT_MASK": True,    # iterative refines the incoming snake mask (the fix); False = old restart behaviour
+    "KVASIR_ITER_INIT_MASK": True,    # iterative refines the incoming snake mask; False = old restart behaviour
     "KVASIR_USE_SAM": True,           # False = Variant C (no SAM; threshold the fused saliency map)
     "KVASIR_USE_SNAKE": True,         # False = Variant B (no snake refinement)
     "KVASIR_SNAKE_NONEROSION": True,  # snake refines the boundary but may not erode the object (anti-recall-loss)
@@ -133,7 +125,6 @@ print(f"[CRF] boundary post-processing backend in use: {_crf_backend_name()}")
 
 # -----------------------------------------------------------------------------------------
 # Output management: ONE configurable folder for figures / checkpoints / results / logs.
-# Change REVISION_CONFIG["OUTPUT_DIR"] to send everything wherever you like.
 # -----------------------------------------------------------------------------------------
 import sys as _sys, datetime as _dt
 
@@ -411,12 +402,12 @@ class ExcitationBlock(nn.Module):
         return x
 
 # =========================================================================================
-# Part 2: FIXED - Hybrid Contrastive + Classification Model
+# Part 2: Hybrid Contrastive + Classification Model
 # =========================================================================================
 
 class DifferentialBiomedCLIP(nn.Module):
     """
-    FIXED: Hybrid model with contrastive learning + classification head
+    Hybrid model with contrastive learning + classification head
     """
     def __init__(self, model_name, num_classes, device, lambda_init=0.8, eb_reduction=16,
                  class_names=None, use_contrastive=True):
@@ -432,7 +423,7 @@ class DifferentialBiomedCLIP(nn.Module):
         )
         self.tokenizer = get_tokenizer('hf-hub:' + model_name)
 
-        # FIXED: Replace Vision Transformer with Differential Version
+        # Replace Vision Transformer with Differential Version
         print("Replacing Vision Transformer blocks with Differential Version...")
         timm_wrapper = base_model.visual
         if hasattr(timm_wrapper, 'trunk'):
@@ -466,7 +457,7 @@ class DifferentialBiomedCLIP(nn.Module):
             for i in range(depth)
         ])
 
-        # FIXED: Proper weight transfer from original blocks to differential blocks
+        # Proper weight transfer from original blocks to differential blocks
         print("Transferring pretrained weights to differential blocks...")
         with torch.no_grad():
             for i, (orig_block, diff_block) in enumerate(zip(vision_transformer.blocks, new_blocks)):
@@ -501,7 +492,7 @@ class DifferentialBiomedCLIP(nn.Module):
         # Keep text encoder original (it works well for medical text)
         self.model = base_model
 
-        # FIXED: Contrastive learning components
+        # Contrastive learning components
         if self.use_contrastive:
             self.logit_scale = nn.Parameter(torch.ones([]) * torch.log(torch.tensor(1/0.07)))
 
@@ -530,7 +521,7 @@ class DifferentialBiomedCLIP(nn.Module):
 
     def forward(self, images, return_features=False, return_contrastive=False):
         """
-        FIXED: Hybrid forward pass
+        Hybrid forward pass
 
         Args:
             images: Input images
@@ -691,14 +682,14 @@ def collate_fn_kvasir(batch):
     return images, masks, paths
 
 # =========================================================================================
-# Part 5: FIXED - Training with Hybrid Loss
+# Part 5: Training with Hybrid Loss
 # =========================================================================================
 
 def train_classifier_with_hybrid_loss(model, train_loader, val_loader, epochs, lr, device,
                                      CLASS_LABELS, save_path="best_differential_biomedclip.pth",
                                      contrastive_weight=0.3, classification_weight=0.7):
     """
-    FIXED: Training with hybrid contrastive + classification loss
+     Training with hybrid contrastive + classification loss
     """
     criterion_cls = nn.CrossEntropyLoss()
     criterion_contrastive = nn.CrossEntropyLoss()
@@ -721,7 +712,7 @@ def train_classifier_with_hybrid_loss(model, train_loader, val_loader, epochs, l
             images, labels = images.to(device), labels.to(device)
             optimizer.zero_grad()
 
-            # FIXED: Get both contrastive and classification logits
+            #  Get both contrastive and classification logits
             if model.use_contrastive:
                 logits_contrastive, logits_cls = model(images, return_contrastive=True)
 
@@ -818,7 +809,7 @@ def validate_classifier_with_uncertainty(model, dataloader, criterion, device, u
 # =========================================================================================
 
 class XAICache:
-    """FIXED: Cache for XAI computations"""
+    """ Cache for XAI computations"""
     def __init__(self):
         self.cache = {}
 
@@ -843,7 +834,7 @@ xai_cache = XAICache()
 
 def generate_explanations_focused(model, x_batch, y_batch, device, use_cache=True):
     """Generate FOCUSED explanations with caching."""
-    # FIX: Handle scalar vs array labels properly
+    # Handle scalar vs array labels properly
     if isinstance(y_batch, (int, np.integer)):
         label_for_cache = y_batch
     elif isinstance(y_batch, torch.Tensor):
@@ -915,7 +906,7 @@ def generate_explanations_focused(model, x_batch, y_batch, device, use_cache=Tru
 def calculate_faithfulness_quantus(model, image_tensor, label, explanations, device, subset_size=224, nr_runs=25):
     """
     Faithfulness Correlation (Quantus-style).
-    FIXED: the previous version correlated attributions against a CONSTANT vector
+     the previous version correlated attributions against a CONSTANT vector
     ([pred_drop] * k), which is always NaN -> every method scored 0.0. We now build,
     across many random pixel subsets, pairs of (total |attribution| in the subset,
     drop in target-class probability when that subset is perturbed to a neutral
@@ -1291,7 +1282,7 @@ def uncertainty_guided_prompts(fused_map, entropy, prediction_probs, base_num_pr
     return num_prompts, strategy
 
 # =========================================================================================
-# Part 9: IMPROVED SNAKE REFINEMENT WITH SALIENCY WEIGHTING
+# Part 9: SNAKE REFINEMENT WITH SALIENCY WEIGHTING
 # =========================================================================================
 
 def refine_mask_with_snake_improved(mask, image_np, fused_map, iterations=100,
@@ -1456,7 +1447,7 @@ def iterative_self_correction_improved(classifier, sam_predictor, image_np, imag
                                       confidence_threshold=0.15, init_mask=None):
     """
     IMPROVED: Stricter quality gates and validated prompt additions.
-    FIXED: Resolved UnboundLocalError for 'no_improvement_count'.
+     Resolved UnboundLocalError for 'no_improvement_count'.
     """
     print("\n" + "="*70)
     print("🔄 IMPROVED ITERATIVE SELF-CORRECTION LOOP")
@@ -1569,7 +1560,7 @@ def iterative_self_correction_improved(classifier, sam_predictor, image_np, imag
 
     # === ITERATIVE REFINEMENT ===
     previous_mask = current_mask.copy()
-    no_improvement_count = 0  # FIX: Initialize the counter before the loop
+    no_improvement_count = 0  #   Initialize the counter before the loop
 
     for iteration in range(1, max_iterations + 1):
         print(f"\n🔍 Iteration {iteration}: Self-Correction")
@@ -1687,7 +1678,7 @@ def iterative_self_correction_improved(classifier, sam_predictor, image_np, imag
             confidence_diff = confidence_diff_new
             mask_quality = mask_quality_new
             mask_ratio = mask_ratio_new
-            no_improvement_count = 0 # FIX: Reset counter on improvement
+            no_improvement_count = 0 #   Reset counter on improvement
         else:
             print(f"  ⚠️ Rejected! Quality gate not passed, reverting to best")
             # Revert to best mask
@@ -1724,7 +1715,7 @@ def evaluate_masked_confidence(classifier, image_tensor, mask, label, device, or
     mask_tensor = torch.from_numpy(mask_resized).float().to(device)
     image_tensor = image_tensor.to(device)
 
-    # --- REVISION FIX: neutral (mean) background instead of pure black ---
+    # --- REVISION   neutral (mean) background instead of pure black ---
     # Pure-black masking is OOD for the BiomedCLIP ViT and destabilises the
     # self-correction reward; the BUSI pipeline already uses the mean. Aligned here.
     neutral_background = image_tensor.mean(dim=(1, 2), keepdim=True)
@@ -1818,7 +1809,7 @@ def select_best_sam_candidate(classifier, sam_predictor, original_np, image_tens
                               fused_map, target_class, device, base_bbox, base_pos, base_neg,
                               n_peaks=None):
     """
-    LENAS self-evaluation used for CANDIDATE SELECTION (root-cause fix for 'no_overlap').
+    LENAS self-evaluation used for CANDIDATE SELECTION.
     A single saliency bounding box lands on the polyp only ~29% of the time on these
     out-of-domain frames, so SAM faithfully segments the wrong region. Instead we build
     several candidate masks -- the saliency-bbox candidate plus one seeded at each of the
@@ -1848,7 +1839,7 @@ def select_best_sam_candidate(classifier, sam_predictor, original_np, image_tens
         except Exception:
             lbl = nlbl = None
     for (py, px) in peaks:
-        # (a) localization candidate: small fixed box + single peak point, no negatives
+        # (a) localization candidate: small   ed box + single peak point, no negatives
         box = np.array([px - bw, py - bh, px + bw, py + bh], dtype=float)
         box[0::2] = np.clip(box[0::2], 0, xs[1]); box[1::2] = np.clip(box[1::2], 0, xs[0])
         bbox_o = transform_bbox_to_original(box, xs, os_)
@@ -2540,8 +2531,8 @@ def visualize_kvasir_segmentation_pipeline(sample, classifier, sam_predictor, de
     overlay_final = original_np.copy().astype(float) * 0.7
     overlay_final[final_mask == 1] += np.array([0, 0, 255]) * 0.3
     axes_list[2].imshow(np.clip(overlay_final, 0, 255).astype(np.uint8))
-    title_suffix = f"(Iter {len(iter_history['iteration'])-1})" if iter_history else ""
-    axes_list[2].set_title(f"3. Final Prediction {title_suffix}", fontsize=11, fontweight='bold')
+    title_suf   = f"(Iter {len(iter_history['iteration'])-1})" if iter_history else ""
+    axes_list[2].set_title(f"3. Final Prediction {title_suf  }", fontsize=11, fontweight='bold')
     
     # Ground Truth
     overlay_gt = original_np.copy().astype(float) * 0.7
