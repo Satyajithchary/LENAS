@@ -12,13 +12,6 @@ BUSI difference from Kvasir: there is no single target class. Each image's XAI t
 OWN lesion class (benign / malignant); 'normal' images have no lesion/mask and are skipped.
 This stays annotation-free for segmentation (image-level class label only, no pixel labels).
 
-Prereqs
--------
-1. Train a BUSI in-domain classifier first (image-level labels only):
-     edit train_lenas_classifier.py -> MODE="imagefolder", DATA_DIR=<BUSI root>,
-     SAVE_PATH="best_busi_domain_classifier.pth"; run it. Note the printed class list.
-2. Keep the NEW LENAS_Kvasir_revised.py and the SAM checkpoint on disk.
-
 Usage
 -----
   python lenas_busi_run.py --smoke        # quick test on a few images
