@@ -4,8 +4,7 @@ BUSI QUALITATIVE VISUALS (visual proof)
 =======================================
 Generates the pipeline's multi-panel figures (Original / GT / Saliency / Fused+Prompts /
 SAM / Snake / Final / Error) for representative BUSI images, using the locked BUSI config and
-the per-image lesion class as the XAI target. Picks the best benign + malignant examples so the
-figures show the method working, plus a couple of typical cases for honesty.
+the per-image lesion class as the XAI target.
 
 Usage:
   python busi_visualize.py                 # ~6 figures (best benign/malignant + typical)
