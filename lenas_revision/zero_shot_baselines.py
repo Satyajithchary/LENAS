@@ -2,8 +2,7 @@
 """
 ZERO-SHOT BASELINE COMPARISON  (SAM 2 / SAM 3 / BiomedParse)  on Kvasir-SEG + BUSI
 ==================================================================================
-Standalone evaluation of promptable / text-driven foundation models against LENAS, so you can
-decide (privately) whether to include them. Protocols follow the click-prompt convention used in
+Standalone evaluation of promptable / text-driven foundation models against LENAS. Protocols follow the click-prompt convention used in
 "Comparing SAM 2 and SAM 3 for Zero-Shot Segmentation of 3D Medical Data":
 
   * 1-click  : one positive point at the GT centroid
@@ -11,7 +10,7 @@ decide (privately) whether to include them. Protocols follow the click-prompt co
   * (optional) GT-box prompt for reference (upper bound with oracle localisation)
   * BiomedParse: text-prompt zero-shot (no GT used), matched to the lesion type
 
-IMPORTANT (honesty): 1-click / 2-click / box protocols use the GT mask to place prompts, so they
+IMPORTANT: 1-click / 2-click / box protocols use the GT mask to place prompts, so they
 are NOT annotation-free. They are an *upper-bound / interactive* reference, exactly as in the cited
 paper. LENAS uses NO GT at inference; report that distinction clearly. BiomedParse (text-only) is
 the fair zero-shot comparison.
@@ -33,14 +32,14 @@ import numpy as np
 # --------------------------------------------------------------- paths (edit if needed)
 DATASETS = {
     "kvasir": {
-        "images": "/home/satyajith/.cache/kagglehub/datasets/debeshjha1/kvasirseg/versions/3/Kvasir-SEG/Kvasir-SEG/images",
-        "masks":  "/home/satyajith/.cache/kagglehub/datasets/debeshjha1/kvasirseg/versions/3/Kvasir-SEG/Kvasir-SEG/masks",
+        "images": ".cache/kagglehub/datasets/debeshjha1/kvasirseg/versions/3/Kvasir-SEG/Kvasir-SEG/images",
+        "masks":  ".cache/kagglehub/datasets/debeshjha1/kvasirseg/versions/3/Kvasir-SEG/Kvasir-SEG/masks",
         "layout": "flat",           # images/ + masks/ with same filename
         "text":   "polyp",
         "text_alts": ["colon polyp", "polyp", "lesion", "abnormal growth"],
     },
     "busi": {
-        "root":   "/media/data/DARE/BUSI_Dataset/Dataset_BUSI_with_GT",
+        "root":   "./BUSI_Dataset/Dataset_BUSI_with_GT",
         "layout": "busi",           # class folders, <name>_mask.png
         "text":   "tumor",
         "text_alts": ["breast tumor", "tumor", "mass", "lesion"],
@@ -159,7 +158,7 @@ SAM3_CKPT = "/media/data/DARE/sam3.pt"   # local gated checkpoint
 def build_sam3():
     """SAM 3 via HuggingFace transformers (Sam3Model). SAM 3 is a TEXT/concept segmentation
     model; the documented API takes a text phrase, not click points. We therefore run it
-    text-only ('polyp'/'tumor'). If a local checkpoint is provided it is loaded on top."""
+    text-only ('polyp'/'tumor'). """
     try:
         import torch
         from transformers import Sam3Processor, Sam3Model
