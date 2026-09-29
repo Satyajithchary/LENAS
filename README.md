@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="1000px" height="auto" src="assets/LENAS_Rebuttal_Fig1.drawio (2).png">
+    <img width="1000px" height="auto" src="assets/LENAS_Rebuttal_Fig1 (2).png">
 </div>
 
 ## LENAAFMIS
