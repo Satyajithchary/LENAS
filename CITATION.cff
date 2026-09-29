@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "LENAAFMIS: Learning from Explainable and Navigated Attention for Annotation-Free Medical Image Segmentation"
-version: "1.0.0"
+version: "v1.0.1"
 license: MIT
 repository-code: "https://github.com/Satyajithchary/LENAS"
 authors:
