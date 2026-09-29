@@ -4,7 +4,6 @@ title: "LENAAFMIS: Learning from Explainable and Navigated Attention for Annotat
 version: "1.0.0"
 license: MIT
 repository-code: "https://github.com/Satyajithchary/LENAS"
-doi: "10.5281/zenodo.XXXXXXX"   # replace after the Zenodo release is archived
 authors:
   - family-names: Chary
     given-names: Podakanti Satyajith
