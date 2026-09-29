@@ -1,0 +1,12 @@
+{
+  "title": "LENAAFMIS: Learning from Explainable and Navigated Attention for Annotation-Free Medical Image Segmentation",
+  "upload_type": "software",
+  "license": "MIT",
+  "description": "Code for LENAAFMIS, an annotation-free medical image segmentation framework that converts explainability maps of a differential vision-language classifier into prompts for a promptable segmentation model, with confidence-driven iterative refinement. Version used in the Communications AI & Computing article.",
+  "creators": [
+    {"name": "Chary, Podakanti Satyajith", "affiliation": "IIT Hyderabad"},
+    {"name": "Kumar, Pithani Teja Venkata Ramana", "affiliation": "IIT Hyderabad"},
+    {"name": "Ganapathy, Nagarajan", "affiliation": "IIT Hyderabad"}
+  ],
+  "keywords": ["annotation-free segmentation", "explainable AI", "medical imaging", "segment anything", "BiomedCLIP"]
+}
