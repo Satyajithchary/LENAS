@@ -28,10 +28,6 @@ Usage
   python lenas_revision_experiments.py --only sensitivity,crf_ablation
   python lenas_revision_experiments.py --force         # re-run even if results exist
 
-Design: CONFIG dataclass at top; --smoke flag; graceful degradation when a dependency or
-dataset is absent (that experiment is skipped, the rest continue); resumability via a state
-file so a crash/stop can be resumed. NO fabricated numbers -- everything comes from real runs;
-the only literature values live in REPORTED_NUMBERS and are clearly labelled "reported in".
 """
 import os, sys, json, time, argparse, random, warnings
 from dataclasses import dataclass, field
@@ -44,8 +40,8 @@ warnings.filterwarnings("ignore")
 @dataclass
 class CFG:
     module_name: str = "LENAS_Kvasir_revised"
-    kvasir_dir: str = "/home/satyajith/.cache/kagglehub/datasets/debeshjha1/kvasirseg/versions/3/Kvasir-SEG/Kvasir-SEG"
-    sam_ckpt: str = "/media/data/DARE/sam_vit_b_01ec64.pth"
+    kvasir_dir: str = "/.cache/kagglehub/datasets/debeshjha1/kvasirseg/versions/3/Kvasir-SEG/Kvasir-SEG"
+    sam_ckpt: str = "./sam_vit_b_01ec64.pth"
     classifier_ckpt: str = "best_kvasir_domain_classifier.pth"
     model_name: str = "microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224"
     out_dir: str = "./LENAS_experiments"
