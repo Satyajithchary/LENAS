@@ -14,13 +14,6 @@ It answers, with numbers:
   * Does CRF erase it?                                        (crf_empty)
   * Do the POSITIVE prompts even land inside the polyp GT?    (prompt_in_gt rate)
 
-HOW TO RUN
-  1. Put this file in the SAME folder as LENAS_Kvasir_revised.py
-  2. Fill the CONFIG paths below (copy them from your main()).
-  3. python kvasir_zero_dice_diagnostic.py
-  4. Paste the "DIAGNOSTIC SUMMARY" block back to me.
-
-Nothing here changes your results; it only measures.
 """
 import os, sys, csv
 import numpy as np
