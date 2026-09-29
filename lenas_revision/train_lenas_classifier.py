@@ -19,7 +19,7 @@ Two ways to supply data (pick one in CONFIG):
   B) BINARY       : POLYP_DIR (all polyp frames, e.g. Kvasir-SEG/images) +
                     NORMAL_DIR (any normal colonoscopy frames). Uses only the folder label.
 
-After training it PRINTS the class_to_idx mapping and the polyp index. Then in
+Then in
 LENAS_Kvasir_revised.py main() set:
     MODEL_NAME stays the same
     CAPSULE_NUM_CLASSES  = <printed num_classes>
@@ -45,7 +45,7 @@ CONFIG = {
     # --- MODE A: imagefolder ---
     "DATA_DIR": "/path/to/colonoscopy_classification",   # subfolder per class
     # --- MODE B: binary polyp vs normal ---
-    "POLYP_DIR":  "/home/satyajith/.cache/kagglehub/datasets/debeshjha1/kvasirseg/versions/3/Kvasir-SEG/Kvasir-SEG/images",
+    "POLYP_DIR":  "/.cache/kagglehub/datasets/debeshjha1/kvasirseg/versions/3/Kvasir-SEG/Kvasir-SEG/images",
     "NORMAL_DIR": "/path/to/normal_colonoscopy_frames",
 
     "SAVE_PATH": "best_kvasir_domain_classifier.pth",
@@ -192,10 +192,10 @@ def main():
 
 DATASET_PRESETS = {
     "kvasir": {"MODE": "imagefolder",
-               "DATA_DIR": "/media/data/DARE/kvasir-dataset/",
+               "DATA_DIR": "./kvasir-dataset/",
                "SAVE_PATH": "best_kvasir_domain_classifier.pth"},
     "busi":   {"MODE": "imagefolder",
-               "DATA_DIR": "/media/data/DARE/BUSI_Dataset/Dataset_BUSI_with_GT/",
+               "DATA_DIR": "./BUSI_Dataset/Dataset_BUSI_with_GT/",
                "SAVE_PATH": "best_busi_domain_classifier.pth"},
 }
 
