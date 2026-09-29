@@ -7,3 +7,10 @@ __pycache__/
 *.png
 *.csv
 *.ipynb_checkpoints/
+data/
+results/
+LENAS_*_experiments/
+ZS_checkpoints/
+ZS_baselines/
+figures_out/
+*.log
