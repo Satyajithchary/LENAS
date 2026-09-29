@@ -6,7 +6,7 @@
 
 This repository provides the official implementation of **LENAAFMIS: Learning from Explainable and Navigated Attention for Annotation-Free Medical Image Segmentation** (Communications AI & Computing). The method was released earlier under the name LENAS; the repository name is kept so that existing links continue to work.
 
-The version of the code used in the article is archived on Zenodo: https://doi.org/10.5281/zenodo.XXXXXXX
+The version of the code used in the article is archived on Zenodo: https://doi.org/10.5281/zenodo.23034243
 
 ## The Problem
 Medical image segmentation is the cornerstone of computer-aided diagnosis, yet it faces two critical hurdles:
@@ -206,7 +206,7 @@ If you find this work useful, please cite:
 }
 ```
 
-Code archive: https://doi.org/10.5281/zenodo.XXXXXXX
+Code archive: https://doi.org/10.5281/zenodo.23034243
 
 ## Feedback and Contact
 For further questions regarding the code or paper, please feel free to contact:
